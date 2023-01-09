@@ -21,8 +21,8 @@ coverage
 # Cypress
 cypress/videos
 cypress/screenshots
-cypress/support
-cypress/plugins
+# cypress/support
+# cypress/plugins
 
 # Dependency directory
 node_modules
