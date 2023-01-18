@@ -77,5 +77,5 @@ jobs:
                 name: Add Replay Metadata and Upload
                 when: always
                 command: |
-                    npx @replayio/replay metadata --init source --warn
+                    npx @replayio/replay metadata --init --keys source --warn
                     npx @replayio/replay upload-all --api-key rwk_VXebmc22Ivem6oNksTNTiivqth6RucSniQuzqykdXDR
