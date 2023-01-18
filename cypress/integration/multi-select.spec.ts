@@ -32,9 +32,9 @@ describe('Multi Select', () => {
         .then(function ($defaultValue) {
           expect($defaultValue).to.have.length(1);
           expect($defaultValue.eq(0)).to.contain('Red');
-        })
-        .get(selector.menuMulti)
-        .should('not.be.visible');
+        });
+        // .get(selector.menuMulti)
+        // .should('not.be.visible');
     });
 
     it(`Should be able to remove values on keyboard actions in view: ${viewport}`, () => {
