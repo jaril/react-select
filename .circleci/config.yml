@@ -5,7 +5,6 @@ docker_defaults: &docker_defaults
         - image: cypress/browsers:node16.17.1-chrome106-ff105-edge
           environment:
               TERM: xterm
-              RECORD_REPLAY_DIRECTORY: /root/project/replay
     working_directory: ~/project/repo
 
 attach_workspace: &attach_workspace
@@ -75,10 +74,8 @@ jobs:
                       npx @replayio/cypress install
                       RECORD_ALL_CONTENT=1 RECORD_REPLAY_METADATA_FILE=$(mktemp) yarn e2e:replay
             - run:
-                name: touch
+                name: Add Replay Metadata and Upload
                 when: always
-                command: touch /root/.replay/playwright/file
-            - run:
-                name: ls
-                when: always
-                command: ls -al /root/.replay/playwright
+                command: |
+                    npx @replayio/replay metadata --init source --warn
+                    npx @replayio/replay upload-all --api-key rwk_VXebmc22Ivem6oNksTNTiivqth6RucSniQuzqykdXDR
