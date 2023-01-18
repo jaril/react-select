@@ -67,6 +67,8 @@ jobs:
             - run:
                   name: Running E2E tests
                   command: |
+                      apt update
+                      apt install xz-utils
                       yarn global add cypress
                       yarn install --silent
                       yarn cypress install
