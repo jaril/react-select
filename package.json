@@ -25,7 +25,7 @@
     "@emotion/jest": "^11.1.0",
     "@manypkg/cli": "^0.19.2",
     "@preconstruct/cli": "^2.2.2",
-    "@replayio/cypress": "^0.4.7",
+    "@replayio/cypress": "^0.4.14",
     "@testing-library/dom": "8.19.0",
     "@testing-library/jest-dom": "5.1.1",
     "@testing-library/react": "12.1.4",
