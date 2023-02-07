@@ -72,4 +72,6 @@ jobs:
                       yarn global add cypress
                       yarn install --silent
                       yarn cypress install
-                      yarn e2e
+                      npx @replayio/cypress install
+                      yarn e2e:replay
+                      npx @replayio/replay upload-all --api-key rwk_PG6jkubxIxOBrB1cMXivEidfwKtW4gMHYwFkRMXrwlF
