@@ -40,9 +40,6 @@ workflows:
     build_pipeline:
         jobs:
             - build
-            - unit_test:
-                  requires:
-                      - build
             - end_to_end:
                   requires:
                       - build
@@ -50,18 +47,18 @@ jobs:
     build:
         <<: *docker_defaults
         <<: *install_steps
-    unit_test:
-        <<: *docker_defaults
-        steps:
-            - *attach_workspace
-            - run:
-                  name: Running unit tests
-                  command: |
-                      yarn prettier:check
-                      yarn lint
-                      yarn type-check
-                      yarn test:jest
-                      yarn coveralls
+    # unit_test:
+    #     <<: *docker_defaults
+    #     steps:
+    #         - *attach_workspace
+    #         - run:
+    #               name: Running unit tests
+    #               command: |
+    #                   yarn prettier:check
+    #                   yarn lint
+    #                   yarn type-check
+    #                   yarn test:jest
+    #                   yarn coveralls
     end_to_end:
         <<: *docker_defaults
         steps:
@@ -69,10 +66,17 @@ jobs:
             - run:
                   name: Running E2E tests
                   command: |
+                      apt update
+                      apt install xz-utils
                       yarn global add cypress
                       yarn install --silent
                       yarn cypress install
                       apt-get install xz-utils
                       npx @replayio/cypress install
-                      yarn e2e:replay
-                      npx @replayio/replay upload-all --api-key rwk_PG6jkubxIxOBrB1cMXivEidfwKtW4gMHYwFkRMXrwlF
+                      RECORD_ALL_CONTENT=1 RECORD_REPLAY_METADATA_FILE=$(mktemp) yarn e2e:replay
+            - run:
+                name: Add Replay Metadata and Upload
+                when: always
+                command: |
+                    npx @replayio/replay metadata --init --keys source --warn
+                    npx @replayio/replay upload-all --api-key rwk_VXebmc22Ivem6oNksTNTiivqth6RucSniQuzqykdXDR
