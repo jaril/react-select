@@ -71,12 +71,12 @@ jobs:
                       yarn global add cypress
                       yarn install --silent
                       yarn cypress install
-                      apt-get install xz-utils
                       npx @replayio/cypress install
                       RECORD_ALL_CONTENT=1 RECORD_REPLAY_METADATA_FILE=$(mktemp) yarn e2e:replay
             - run:
                 name: Add Replay Metadata and Upload
                 when: always
                 command: |
+                    node -e 'console.log(JSON.stringify(process.env, undefined, 2))'
                     npx @replayio/replay metadata --init --keys source --warn
                     npx @replayio/replay upload-all --api-key rwk_VXebmc22Ivem6oNksTNTiivqth6RucSniQuzqykdXDR
